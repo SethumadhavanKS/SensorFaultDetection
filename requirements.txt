@@ -1,0 +1,10 @@
+pymongo==3.8
+pymongo[srv]
+pandas
+numpy
+scikit-learn
+ipykernel
+seaborn
+matplotlib
+
+-e .
