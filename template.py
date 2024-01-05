@@ -20,6 +20,7 @@ lstOFFiles = [
     f"src/{packageName}/pipeline/prediction_pipeline.py",
     f"src/{packageName}/logger.py",
     f"src/{packageName}/exception.py",
+    f"src/{packageName}/config.py",
     f"src/{packageName}/utils/__init__.py",
     f"src/{packageName}/utils/utils.py",
     "notebooks/research.ipynb",
@@ -29,7 +30,8 @@ lstOFFiles = [
     "init_setup.sh",
     "test.py",
     "data_dump.py",
-    "main.py"
+    "main.py",
+    ".env"
 ]
 
 #Creating directory

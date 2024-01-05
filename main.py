@@ -1,5 +1,6 @@
 from src.sensor.logger import logging
 from src.sensor.exception import CustomException
+from src.sensor.utils import get_collection_as_df
 import sys
 
 def test_logger_exc():
@@ -11,4 +12,4 @@ def test_logger_exc():
         raise CustomException(e,sys) from None
 
 if __name__ == "__main__":
-    test_logger_exc()
+    get_collection_as_df("aps", "sensor")
