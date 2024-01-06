@@ -3,6 +3,7 @@ from src.sensor.utils import utils
 from src.sensor.entity import config_entity, artifact_entity
 from src.sensor.exception import CustomException
 from src.sensor.logger import logging
+from src.sensor.config import TARGET_COLUMN
 from scipy.stats import ks_2samp
 
 import os, sys, pandas as pd, numpy as np
@@ -104,7 +105,7 @@ class DataValidation:
             train_df = self.drop_missing_values(df=train_df, report_key_name="missing_values_in_train_dataset")
             test_df = self.drop_missing_values(df=test_df,report_key_name="missing_values_in_test_dataset")
 
-            exclude_cols = ["class"]
+            exclude_cols = [TARGET_COLUMN]
             base_df = utils.convert_columns_float(df=base_df,exclude_cols=exclude_cols)
             train_df = utils.convert_columns_float(df=train_df,exclude_cols=exclude_cols)
             test_df = utils.convert_columns_float(df=test_df,exclude_cols=exclude_cols)

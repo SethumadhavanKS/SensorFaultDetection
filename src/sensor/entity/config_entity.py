@@ -6,6 +6,9 @@ FILE_NAME = "sensor.csv"
 TRAIN_FILE_NAME = "train.csv"
 TEST_FILE_NAME = "test.csv"
 TEST_SIZE = 0.3
+TRANSFORMER_OBJ_FILE_NAME = "transformer.pkl"
+TARGET_ENCODER_OBJ_FILE_NAME = "target_encoder.pkl"
+MODEL_FILE_NAME = "model.pkl"
 
 class TrainingPipelineConfig:
     def __init__(self):
@@ -34,7 +37,14 @@ class DataValidationConfig:
         self.missing_threshold = 0.2
         self.base_file_path = os.path.join("aps_failure_training_set1.csv")
 
-class DataTransformationConfig:...
+class DataTransformationConfig:
+     def __init__(self,traing_pipeline_config:TrainingPipelineConfig):
+        self.data_transformation_directory = os.path.join(traing_pipeline_config.artifact_dir, "data_transformation")
+        self.transform_object_path = os.path.join(self.data_transformation_directory,"transformer",TRANSFORMER_OBJ_FILE_NAME)
+        self.transform_train_path = os.path.join(self.data_transformation_directory,"transformed",TRAIN_FILE_NAME)
+        self.transform_test_path = os.path.join(self.data_transformation_directory,"transformed",TEST_FILE_NAME)
+        self.target_encoder_path = os.path.join(self.data_transformation_directory,"target_encoder",TARGET_ENCODER_OBJ_FILE_NAME)
+        
 class ModelTrainerConfig:...
 class ModelEvaluationConfig:...
 class ModelPusherConfig:...
