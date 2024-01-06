@@ -9,6 +9,8 @@ TEST_SIZE = 0.3
 TRANSFORMER_OBJ_FILE_NAME = "transformer.pkl"
 TARGET_ENCODER_OBJ_FILE_NAME = "target_encoder.pkl"
 MODEL_FILE_NAME = "model.pkl"
+EXPECTED_TEST_SCORE = 0.7
+OVERFITTING_THRESHOLD = 0.1
 
 class TrainingPipelineConfig:
     def __init__(self):
@@ -45,7 +47,13 @@ class DataTransformationConfig:
         self.transform_test_path = os.path.join(self.data_transformation_directory,"transformed",TEST_FILE_NAME)
         self.target_encoder_path = os.path.join(self.data_transformation_directory,"target_encoder",TARGET_ENCODER_OBJ_FILE_NAME)
         
-class ModelTrainerConfig:...
+class ModelTrainerConfig:
+    def __init__(self,traing_pipeline_config:TrainingPipelineConfig):
+        self.model_trainer_directory = os.path.join(traing_pipeline_config.artifact_dir, "model_trainer")
+        self.model_path = os.path.join(self.model_trainer_directory,"model",MODEL_FILE_NAME)
+        self.expected_test_score = EXPECTED_TEST_SCORE
+        self.overfitting_threshold = OVERFITTING_THRESHOLD
+
 class ModelEvaluationConfig:...
 class ModelPusherConfig:...
 
