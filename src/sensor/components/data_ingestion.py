@@ -1,4 +1,4 @@
-from src.sensor import utils
+from src.sensor.utils import utils
 from src.sensor.entity import config_entity, artifact_entity
 from src.sensor.exception import CustomException
 from src.sensor.logger import logging
