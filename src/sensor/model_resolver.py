@@ -1,8 +1,8 @@
-import os
+import os,sys
 from src.sensor.exception import CustomException
 from src.sensor.entity.config_entity import MODEL_FILE_NAME, TARGET_ENCODER_OBJ_FILE_NAME, TRANSFORMER_OBJ_FILE_NAME
 
-MODEL_REGISTRY = "saved_models"
+MODEl_REGISTRY = "saved_models"
 TRANSFORMER_DIR_NAME = "transformer"
 TARGET_ENCODER_DIR_NAME = "target_encoder"
 MODEL_DIR_NAME = "model"
@@ -10,7 +10,7 @@ MODEL_DIR_NAME = "model"
 class ModelResolver:
 
     def __init__(self):
-        self.model_registry = MODEL_REGISTRY
+        self.model_registry = MODEl_REGISTRY
         self.transformer_dir_name = TRANSFORMER_DIR_NAME
         self.target_encoder_dir_name = TARGET_ENCODER_DIR_NAME
         self.model_dir_name = MODEL_DIR_NAME
@@ -18,7 +18,10 @@ class ModelResolver:
     def get_latest_dir_path(self):
 
         try:
+            os.makedirs(self.model_registry,exist_ok=True)
             dir_names = os.listdir(self.model_registry)
+            if len(dir_names) == 0:
+                return None
             dir_names = list(map(int,dir_names))
             latest_dir_name = max(dir_names)
             return os.path.join(self.model_registry, f"{latest_dir_name}")

@@ -1,7 +1,7 @@
 from src.sensor.logger import logging
 from src.sensor.exception import CustomException
 from src.sensor.entity import config_entity
-from src.sensor.components import data_ingestion, data_validation, data_transformation, model_trainer
+from src.sensor.components import data_ingestion, data_validation, data_transformation, model_trainer, model_evaluation, model_pusher
 import sys
 
 def test_logger_exc():
@@ -34,3 +34,18 @@ if __name__ == "__main__":
     model_trainer_config = config_entity.ModelTrainerConfig(traing_pipeline_config=train_pipeline_config)
     model_trainer = model_trainer.ModelTrainer(model_trainer_config=model_trainer_config,data_transformation_artifact=data_transformation_artifact)
     model_trainer_artifact = model_trainer.initiate_model_trainer()
+
+    # Model evaluation
+    model_eval_config = config_entity.ModelEvaluationConfig(traing_pipeline_config=train_pipeline_config)
+    model_eval = model_evaluation.ModelEvaluation(model_eval_config=model_eval_config,
+                                                  data_ingestion_artifact=data_ingestion_artifact,
+                                                  data_transformation_artifact=data_transformation_artifact,
+                                                  model_trainer_artifact=model_trainer_artifact)
+    model_eval_artifact = model_eval.initiate_model_evaluation()    
+
+    # Model pusher
+    model_pusher_config = config_entity.ModelPusherConfig(traing_pipeline_config=train_pipeline_config)
+    model_pusher = model_pusher.ModelPusher(model_pusher_config=model_pusher_config,
+                                            data_transformation_artifact=data_transformation_artifact,
+                                            model_trainer_artifact=model_trainer_artifact)
+    model_pusher_artifact = model_pusher.initiate_model_pusher()

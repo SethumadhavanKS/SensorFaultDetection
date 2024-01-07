@@ -6,6 +6,7 @@ from src.sensor.model_resolver import ModelResolver
 from src.sensor.config import TARGET_COLUMN
 from sklearn.metrics import f1_score
 import pandas as pd
+import sys
 
 class ModelEvaluation:
 
@@ -13,13 +14,16 @@ class ModelEvaluation:
                  data_ingestion_artifact:artifact_entity.DataIngestionArtifact,
                  data_transformation_artifact:artifact_entity.DataTransformationArtifact,
                  model_trainer_artifact:artifact_entity.ModelTrainerArtifact):
-        logging.info(f"{'>>'*20} Model Evaluation {'<<'*20}")
-        self.model_eval_config = model_eval_config
-        self.data_ingestion_artifact = data_ingestion_artifact
-        self.data_transformation_artifact = data_transformation_artifact
-        self.model_trainer_artifact = model_trainer_artifact
-        self.model_resolver = ModelResolver()
-
+        try:
+            logging.info(f"{'>>'*20} Model Evaluation {'<<'*20}")
+            self.model_eval_config = model_eval_config
+            self.data_ingestion_artifact = data_ingestion_artifact
+            self.data_transformation_artifact = data_transformation_artifact
+            self.model_trainer_artifact = model_trainer_artifact
+            self.model_resolver = ModelResolver()
+        except Exception as e:
+            raise CustomException(e, sys)
+        
     def initiate_model_evaluation(self):
         # Compare new model with latest model in saved_models folder
         try:
@@ -29,7 +33,9 @@ class ModelEvaluation:
             if latest_dir_path == None:
                 model_eval_artifact = artifact_entity.ModelEvaluationArtifact(is_model_accepted=True,
                                                                               improved_accuracy=None)
-                logging("No existing models found, new model accepted")
+                logging.info("No existing models found, new model accepted")
+                logging.info(f"Model evaluation artifact: {model_eval_artifact}")            
+                logging.info("Model evaluation completed")
                 return model_eval_artifact
             
             # Finding locations of latest existng model, transformer and encoder
@@ -54,7 +60,7 @@ class ModelEvaluation:
             logging.info("Loading test data")
             test_df = pd.read_csv(self.data_ingestion_artifact.test_file_path)
             target_df = test_df[TARGET_COLUMN]
-            input_df = test_df.drop([TARGET_COLUMN])
+            input_df = test_df.drop(columns=TARGET_COLUMN, axis=1)
 
             # Accuracy of previous model
             input_arr = transformer.transform(input_df)
