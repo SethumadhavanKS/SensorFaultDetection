@@ -32,6 +32,7 @@ lstOFFiles = [
     "test.py",
     "data_dump.py",
     "main.py",
+    "prediction.py",
     ".env"
 ]
 
