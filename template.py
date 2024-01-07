@@ -23,6 +23,7 @@ lstOFFiles = [
     f"src/{packageName}/config.py",
     f"src/{packageName}/utils/__init__.py",
     f"src/{packageName}/utils/utils.py",
+    f"src/{packageName}/model_resolver.py",
     "notebooks/research.ipynb",
     "notebooks/data/.gitkeep",
     "requirements.txt",
