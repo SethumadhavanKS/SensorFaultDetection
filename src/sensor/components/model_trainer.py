@@ -46,10 +46,9 @@ class ModelTrainer:
             # Check for overfitting or underfitting or expected score
             logging.info("Checking model underfitted or not")
             if f1_test_score < self.model_trainer_config.expected_test_score:
-                raise Exception(f"Model is not good as it is not able to give expected score: 
-                                {self.model_trainer_config.expected_test_score}, model actual score: {f1_test_score}")
+                raise Exception(f"Model is not good as it is not able to give expected score: {self.model_trainer_config.expected_test_score}, model actual score: {f1_test_score}")
 
-            logging.info("Checking model overfotted or not")
+            logging.info("Checking model overfitted or not")
             diff = abs(f1_test_score - f1_train_score)
             if diff > self.model_trainer_config.overfitting_threshold:
                 raise Exception(f"Train and test score difference: {diff} is higher than overfitting threshold: {self.model_trainer_config.overfitting_threshold}")

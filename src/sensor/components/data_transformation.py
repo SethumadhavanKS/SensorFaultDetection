@@ -78,8 +78,8 @@ class DataTransformation:
             logging.info(f"After sampling Test set Input: {input_feature_test_arr.shape} Target: {target_feature_test_arr.shape}")
 
             # Saving transformed train and test data
-            train_arr = np.c_(input_feature_train_arr, target_feature_train_arr)
-            test_arr = np.c_(input_feature_test_arr,target_feature_test_arr)
+            train_arr = np.c_[input_feature_train_arr, target_feature_train_arr]
+            test_arr = np.c_[input_feature_test_arr,target_feature_test_arr]
 
             utils.save_numpy_array(self.data_transformation_config.transform_train_path,train_arr)
             utils.save_numpy_array(self.data_transformation_config.transform_test_path,test_arr)
